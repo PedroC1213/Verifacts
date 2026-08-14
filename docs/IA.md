@@ -1,46 +1,51 @@
 # Inteligencia Artificial
 
-## Uso previsto
+## Propósito
 
-VeriFact contempla la incorporación de técnicas de Inteligencia Artificial para complementar el análisis basado en reglas.
+VeriFact contempla el uso de técnicas de Inteligencia Artificial y procesamiento de lenguaje natural como complemento al análisis basado en reglas.
 
-La IA podría utilizarse para analizar características lingüísticas y semánticas del contenido y contribuir al cálculo del nivel de riesgo.
+La Inteligencia Artificial no será responsable de determinar de forma absoluta si un contenido es verdadero o falso. Su función será aportar características adicionales para estimar el nivel de riesgo del contenido.
 
-## Situación actual
+## Estrategia de implementación
 
-En esta etapa el proyecto se encuentra en la definición del problema y de la arquitectura. El análisis inicial se plantea mediante reglas y características identificables del contenido.
+El proyecto se desarrollará de manera incremental.
 
-La incorporación de un modelo de Inteligencia Artificial será evaluada durante las siguientes etapas del proyecto.
+### Primera etapa
 
-## Posible aplicación
+Se implementará un análisis basado en reglas para detectar características como:
 
-El componente de análisis podrá recibir un contenido y producir características que posteriormente puedan ser utilizadas por un modelo de clasificación.
+- lenguaje sensacionalista;
+- exceso de mayúsculas;
+- uso excesivo de signos;
+- afirmaciones absolutas;
+- ausencia aparente de fuentes.
 
-El flujo previsto es:
+### Segunda etapa
 
+Se incorporarán técnicas de procesamiento de lenguaje natural para obtener características lingüísticas adicionales.
+
+La herramienta inicialmente considerada es spaCy.
+
+### Tercera etapa
+
+Se evaluará la incorporación de un modelo de Machine Learning utilizando herramientas como scikit-learn.
+
+## Flujo previsto
+
+```text
 Contenido
-↓
+    |
+    v
 Preprocesamiento
-↓
-Análisis lingüístico
-↓
-Modelo NLP/ML
-↓
-Score
-↓
-Resultado
-
-## Consideraciones
-
-El resultado generado por el sistema no será presentado como una determinación absoluta de verdad o falsedad.
-
-El sistema proporcionará indicadores de riesgo o confiabilidad y mostrará los factores que contribuyeron al resultado.
-
-## Pendiente
-
-- Selección del modelo.
-- Selección del dataset.
-- Definición de variables.
-- Evaluación del modelo.
-- Integración con el Analysis Engine.
-- Definición de métricas de evaluación.
+    |
+    +-----------> Rule Engine
+    |
+    +-----------> NLP Analyzer
+    |
+    +-----------> ML Model
+                   |
+                   v
+             Scoring Engine
+                   |
+                   v
+               Resultado
