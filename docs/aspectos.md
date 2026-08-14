@@ -2,38 +2,46 @@
 
 ## Declaración
 
-La arquitectura de VeriFact debe permitir incorporar nuevos mecanismos de análisis de contenido sin requerir modificaciones significativas en los módulos existentes.
+La arquitectura de VeriFact debe permitir incorporar nuevos mecanismos de análisis de contenido sin requerir modificaciones significativas en los componentes existentes.
 
-## Justificación
+## Motivación
 
-El sistema inicialmente utilizará un motor de análisis basado en reglas y características lingüísticas. Sin embargo, posteriormente podrá incorporar técnicas de procesamiento de lenguaje natural y modelos de aprendizaje automático.
+El núcleo del sistema es el análisis de contenidos digitales. Durante el desarrollo pueden aparecer nuevas necesidades, como:
 
-Por esta razón, el componente encargado del análisis se plantea de manera desacoplada de la lógica principal de la aplicación.
+- nuevas reglas de detección;
+- análisis lingüístico;
+- nuevos algoritmos;
+- modelos de Machine Learning;
+- nuevas fuentes de información.
 
-## Arquitectura inicial
-
-La solución se plantea inicialmente como una arquitectura modular:
-
-Frontend → Backend → Analysis Engine → Database
-
-El `Analysis Engine` será responsable de procesar el contenido y generar las características necesarias para determinar el nivel de riesgo del contenido analizado.
-
-## Evolución prevista
-
-La arquitectura podrá evolucionar posteriormente para incorporar diferentes estrategias de análisis:
-
-Analysis Engine
-
-- Rule Engine
-- NLP Analyzer
-- ML Model
-
-Esta separación permitirá agregar nuevas capacidades de análisis reduciendo el impacto sobre los demás componentes del sistema.
+Por esta razón, el análisis se separa en componentes independientes.
 
 ## Decisión arquitectónica
 
-Se utilizará una arquitectura modular con separación de responsabilidades y bajo acoplamiento entre componentes. El motor de análisis se diseñará de manera que pueda evolucionar independientemente de la interfaz de usuario y de la persistencia de datos.
+El backend se organizará de manera modular, separando:
 
-## Beneficio esperado
+- extracción de contenido;
+- análisis basado en reglas;
+- análisis lingüístico;
+- cálculo de puntuación;
+- persistencia.
 
-Esta decisión permitirá que VeriFact pueda incorporar nuevas técnicas de análisis conforme avance el proyecto sin necesidad de rediseñar completamente la aplicación.
+La comunicación entre estos componentes se realizará mediante interfaces y estructuras de datos definidas por la aplicación.
+
+## Arquitectura prevista
+
+```text
+                     FastAPI
+                        |
+        +---------------+----------------+
+        |               |                |
+        v               v                v
+Content Extractor  Rule Engine      NLP Analyzer
+        |               |                |
+        +---------------+----------------+
+                        |
+                        v
+                 Scoring Engine
+                        |
+                        v
+                     SQLite
